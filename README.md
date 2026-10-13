@@ -1,31 +1,44 @@
-# Automated Web Application Security Assessment for Financial Platforms
+# Financial Web Security Scanner — Starter
 
-## 1. Project Overview
+This starter scanner is for an authorised local lab such as OWASP Juice Shop.
 
-This project aims to develop a Python-based automated web application security scanner for identifying common security vulnerabilities in web applications, with particular emphasis on risks relevant to banking and financial platforms.
+## Features
+- Same-origin page discovery
+- Link, form, input-point and API-candidate discovery
+- Basic HTTP security-header checks
+- Observable cookie attribute checks
+- JSON reporting
+- Localhost-only target restriction
+- GET requests only; forms are not submitted and exploit payloads are not sent
 
-## 2. Problem Statement
+## Setup (Windows PowerShell)
 
-Web applications used by financial institutions may contain security weaknesses that expose sensitive customer information or allow unauthorised actions. Manual security testing can be time-consuming, creating a need for tools that help automate the identification of common vulnerabilities.
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
 
-## 3. Project Objectives
+If PowerShell blocks activation, you can use the virtual environment's Python directly:
 
-- Study common web application vulnerabilities described in the OWASP Top 10.
-- Establish a controlled laboratory environment using OWASP Juice Shop.
-- Develop a Python-based scanner to identify selected security weaknesses.
-- Generate reports containing findings, severity, evidence and remediation recommendations.
-- Package the scanner using Docker.
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
 
-## 4. Technologies
+## Run against local Juice Shop
 
-- Python
-- Git and GitHub
-- Docker
-- OWASP Juice Shop
-- HTTP testing libraries
+Make sure Juice Shop is running at `http://localhost:3000`, then run:
 
-## 5. Scope
+```powershell
+python scanner.py --target http://localhost:3000 --max-pages 20 --output report.json
+```
 
-The project will initially focus on learning web security fundamentals and establishing the test environment. Scanner development and validation will follow in subsequent stages.
+## Report
+The generated `report.json` contains pages, forms, links, input points, API candidates, cookie observations, findings, errors, and a summary.
 
-All security testing will be conducted against applications that I own or have explicit permission to test.# Financial-Web-Security-Scanner
+## Limitations
+- This is a foundation, not a complete OWASP Top 10 scanner.
+- It does not submit forms, authenticate, exploit vulnerabilities, or prove business-logic flaws.
+- Missing headers and cookie attributes are indicators and require manual verification.
+- Only localhost targets are accepted in this version.
