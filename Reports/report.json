@@ -1,7 +1,7 @@
 {
   "project": "Automated Web Application Security Assessment for Financial Platforms",
   "scanner_version": "0.1",
-  "scan_started_utc": "2026-10-13T19:06:14.348479+00:00",
+  "scan_started_utc": "2026-10-17T22:16:36.916191+00:00",
   "target": "http://localhost:3000",
   "scan_mode": "passive discovery and low-impact checks; GET requests only; no form submissions",
   "pages": [],
@@ -27,5 +27,5 @@
     "errors_count": 1,
     "note": "Findings are indicators requiring validation, not proof of exploitable vulnerabilities."
   },
-  "scan_finished_utc": "2026-10-13T19:06:18.451634+00:00"
+  "scan_finished_utc": "2026-10-17T22:16:41.011603+00:00"
 }

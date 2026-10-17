@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from pathlib import Path
 import re
 import sys
 import time
@@ -374,7 +375,13 @@ def main() -> int:
     parser.add_argument("--max-pages", type=int, default=20, help="Maximum same-origin pages to visit (default: 20).")
     parser.add_argument("--delay", type=float, default=0.2, help="Delay between requests in seconds (default: 0.2).")
     parser.add_argument("--timeout", type=float, default=8.0, help="HTTP timeout in seconds (default: 8).")
-    parser.add_argument("--output", default="report.json", help="JSON report path (default: report.json).")
+    project_root = Path(__file__).resolve().parent.parent
+    default_report = project_root / "reports" / "report.json"
+    parser.add_argument(
+        "--output",
+        default=str(default_report),
+        help="JSON report path (default: reports/report.json).",
+    )
     args = parser.parse_args()
 
     if args.max_pages < 1 or args.max_pages > 100:
@@ -388,7 +395,10 @@ def main() -> int:
         print(f"[!] Target rejected: {exc}", file=sys.stderr)
         return 2
 
-    with open(args.output, "w", encoding="utf-8") as file:
+    report_path = Path(args.output).expanduser()
+    report_path.parent.mkdir(parents=True, exist_ok=True)
+
+    with report_path.open("w", encoding="utf-8") as file:
         json.dump(report, file, indent=2, ensure_ascii=False)
 
     print("[+] Scan complete")
@@ -398,7 +408,7 @@ def main() -> int:
     print(f"    Input points found: {report['summary']['input_points_discovered']}")
     print(f"    API candidates: {report['summary']['api_candidates_discovered']}")
     print(f"    Findings: {report['summary']['findings_count']}")
-    print(f"    JSON report: {args.output}")
+    print(f"    JSON report: {report_path.resolve()}")
     print("    Reminder: review findings manually; missing headers are not automatically exploitable vulnerabilities.")
     return 0
 
