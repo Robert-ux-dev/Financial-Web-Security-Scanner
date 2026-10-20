@@ -1,31 +1,59 @@
 {
   "project": "Automated Web Application Security Assessment for Financial Platforms",
   "scanner_version": "0.1",
-  "scan_started_utc": "2026-10-17T22:16:36.916191+00:00",
-  "target": "http://localhost:3000",
+  "scan_started_utc": "2026-10-20T13:55:40.221833+00:00",
+  "target": "http://127.0.0.1:3000",
   "scan_mode": "passive discovery and low-impact checks; GET requests only; no form submissions",
-  "pages": [],
+  "pages": [
+    {
+      "url": "http://127.0.0.1:3000/",
+      "status_code": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "title": "OWASP Juice Shop",
+      "links_found": [],
+      "forms_found": 0,
+      "input_points_found": 0
+    }
+  ],
   "forms": [],
   "links": [],
   "input_points": [],
   "api_candidates": [],
   "cookie_observations": [],
-  "findings": [],
-  "errors": [
+  "findings": [
     {
-      "url": "http://localhost:3000/",
-      "error": "HTTPConnectionPool(host='localhost', port=3000): Max retries exceeded with url: / (Caused by NewConnectionError(\"HTTPConnection(host='localhost', port=3000): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it\"))"
+      "id": "F001",
+      "category": "Security Misconfiguration",
+      "title": "Missing Content-Security-Policy response header",
+      "severity": "medium",
+      "confidence": "low",
+      "url": "http://127.0.0.1:3000/",
+      "evidence": "The response did not include the Content-Security-Policy header.",
+      "recommendation": "Review whether Content-Security-Policy is appropriate for this application. Helps restrict which resources a browser may load.",
+      "verified_vulnerability": false
+    },
+    {
+      "id": "F002",
+      "category": "Security Misconfiguration",
+      "title": "Missing Referrer-Policy response header",
+      "severity": "low",
+      "confidence": "low",
+      "url": "http://127.0.0.1:3000/",
+      "evidence": "The response did not include the Referrer-Policy header.",
+      "recommendation": "Review whether Referrer-Policy is appropriate for this application. Controls how much referrer information browsers send.",
+      "verified_vulnerability": false
     }
   ],
+  "errors": [],
   "summary": {
-    "pages_visited": 0,
+    "pages_visited": 1,
     "links_discovered": 0,
     "forms_discovered": 0,
     "input_points_discovered": 0,
     "api_candidates_discovered": 0,
-    "findings_count": 0,
-    "errors_count": 1,
+    "findings_count": 2,
+    "errors_count": 0,
     "note": "Findings are indicators requiring validation, not proof of exploitable vulnerabilities."
   },
-  "scan_finished_utc": "2026-10-17T22:16:41.011603+00:00"
+  "scan_finished_utc": "2026-10-20T13:55:40.456681+00:00"
 }

@@ -37,7 +37,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-DEFAULT_TARGET = "http://localhost:3000"
+DEFAULT_TARGET = "http://127.0.0.1:3000"
 USER_AGENT = "FinancialWebSecurityScanner/0.1 (authorised lab assessment)"
 
 SECURITY_HEADERS = {
